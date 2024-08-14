@@ -50,7 +50,7 @@ def _process_chapter(args):
 
     return idx, intervals
 
-def align_text_with_audio(text_fragments, split_indexes, lang, audio_dir, progress_callback=None):
+def align_text_with_audio(text_fragments, split_indexes, audio_dir, lang, progress_callback=None):
     chapters = _split_into_chapters(text_fragments, split_indexes)
     audio_files = sorted([os.path.join(audio_dir, f) for f in os.listdir(audio_dir)])
 
