@@ -50,7 +50,7 @@ def _process_chapter(args):
 
     return idx, intervals
 
-def align_text_with_audio(text_fragments, split_indexes, lang, audio_dir):
+def align_text_with_audio(text_fragments, split_indexes, lang, audio_dir, progress_callback=None):
     chapters = _split_into_chapters(text_fragments, split_indexes)
     audio_files = sorted([os.path.join(audio_dir, f) for f in os.listdir(audio_dir)])
 
@@ -68,6 +68,9 @@ def align_text_with_audio(text_fragments, split_indexes, lang, audio_dir):
         for pr_res in processing_results:
             print(f'Chapter {pr_res[0]} done.')
             chapters_results.append(pr_res)
+
+            if progress_callback != None:
+                progress_callback(len(chapters_results) / len(chapters) * 100)
 
         chapters_results.sort(key=lambda x: x[0])
 
