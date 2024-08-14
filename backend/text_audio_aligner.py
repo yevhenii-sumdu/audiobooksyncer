@@ -1,4 +1,3 @@
-import os
 import multiprocessing as mp
 from mutagen.mp3 import MP3
 from aeneas.task import Task
@@ -6,6 +5,7 @@ from aeneas.executetask import ExecuteTask
 from aeneas.textfile import TextFile, TextFragment
 from aeneas.syncmap import SyncMapFragment
 from aeneas.runtimeconfiguration import RuntimeConfiguration
+from backend.utils import get_sorted_files_in_dir
 
 def _split_into_chapters(text_fragments, split_indexes):
     split_indexes = [0] + split_indexes + [len(text_fragments)]
@@ -52,7 +52,7 @@ def _process_chapter(args):
 
 def align_text_with_audio(text_fragments, split_indexes, audio_dir, lang, progress_callback=None):
     chapters = _split_into_chapters(text_fragments, split_indexes)
-    audio_files = sorted([os.path.join(audio_dir, f) for f in os.listdir(audio_dir)])
+    audio_files = get_sorted_files_in_dir(audio_dir)
 
     if len(chapters) != len(audio_files):
         raise Exception('Chapters != audio files')
@@ -63,22 +63,22 @@ def align_text_with_audio(text_fragments, split_indexes, audio_dir, lang, progre
             [(idx, af, ch, lang) for idx, (af, ch) in enumerate(zip(audio_files, chapters))]
         )
 
-        chapters_results = []
+        chapter_results = []
 
         for pr_res in processing_results:
             print(f'Chapter {pr_res[0]} done.')
-            chapters_results.append(pr_res)
+            chapter_results.append(pr_res)
 
             if progress_callback != None:
-                progress_callback(len(chapters_results) / len(chapters) * 100)
+                progress_callback(len(chapter_results) / len(chapters) * 100)
 
-        chapters_results.sort(key=lambda x: x[0])
+        chapter_results.sort(key=lambda x: x[0])
 
     result = []
 
     timeshift = 0
 
-    for idx, intervals in chapters_results:
+    for idx, intervals in chapter_results:
         for interval in intervals:
             interval['begin'] = interval['begin'] + timeshift
             interval['end'] = interval['end'] + timeshift
