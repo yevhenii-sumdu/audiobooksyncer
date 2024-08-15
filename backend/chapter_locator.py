@@ -1,8 +1,10 @@
+import re
 import ffmpeg
 from itertools import accumulate
 from tempfile import NamedTemporaryFile
 from mutagen.mp3 import MP3
-from backend.utils import get_sorted_files_in_dir
+from thefuzz import fuzz
+from backend.utils import *
 
 def _trim_audiofile(input_path, output_path, duration):
     (
@@ -27,8 +29,7 @@ def _transcribe_beginning(audio_path):
 
     return result['text']
 
-def _get_anchor_fragment_indexes(text_fragments, audio_dir):
-    audio_files = get_sorted_files_in_dir(audio_dir)
+def _get_anchor_fragment_indexes(text_fragments, audio_files):
     audio_durations = [MP3(f).info.length for f in audio_files]
 
     total_audio_duration = sum(audio_durations)
@@ -52,3 +53,52 @@ def _get_anchor_fragment_indexes(text_fragments, audio_dir):
     ]
     
     return anchor_fragment_indexes
+
+def _clean_string(str):
+    str = re.sub(r'[^\w]', '', str)
+    return str.lower()
+
+def _find_start_fragment(text_fragments, anchor_fragment_index, transcription):
+    window_margin = 20
+    window_start = max(anchor_fragment_index - window_margin, 0)
+    window_end = min(anchor_fragment_index + window_margin, len(text_fragments) - 1)
+
+    window = text_fragments[window_start:window_end + 1]
+
+    best_match_score = 0
+    best_match_index = 0
+
+    transcription = _clean_string(transcription)
+
+    for i in range(len(window)):
+        concatenated_fragment = ''
+        j = i
+        
+        while len(concatenated_fragment) < len(transcription) and j < len(window):
+            concatenated_fragment += _clean_string(window[j])
+            j += 1
+        
+        if len(concatenated_fragment) >= len(transcription):
+            score = fuzz.ratio(concatenated_fragment[:len(transcription)], transcription)
+
+            if score > best_match_score:
+                best_match_score = score
+                best_match_index = i
+
+    return window_start + best_match_index
+
+def locate_chapters(text_fragments, audio_dir):
+    audio_files = get_sorted_files_in_dir(audio_dir)
+    
+    anchor_fragment_indexes = _get_anchor_fragment_indexes(text_fragments, audio_files)
+
+    print('Transcribing...')
+    transcriptions = []
+    for af in audio_files[1:]:
+        transcriptions.append(_transcribe_beginning(af))
+        print('Done')
+
+    return [
+        _find_start_fragment(text_fragments, *i)
+        for i in zip(anchor_fragment_indexes, transcriptions)
+    ]
