@@ -1,0 +1,6 @@
+aeneas
+mutagen
+ffmpeg-python
+thefuzz
+git+https://github.com/atlantis-11/bertalign.git
+git+https://github.com/openai/whisper.git@v20231117
