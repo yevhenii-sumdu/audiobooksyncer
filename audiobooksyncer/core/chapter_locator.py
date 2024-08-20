@@ -1,5 +1,6 @@
 import re
 import ffmpeg
+from tqdm import tqdm
 from itertools import accumulate
 from tempfile import NamedTemporaryFile
 from mutagen.mp3 import MP3
@@ -92,11 +93,9 @@ def locate_chapters(text_fragments, audio_dir):
     
     anchor_fragment_indexes = _get_anchor_fragment_indexes(text_fragments, audio_files)
 
-    print('Transcribing...')
     transcriptions = []
-    for af in audio_files[1:]:
+    for af in tqdm(audio_files[1:], desc='Audio files'):
         transcriptions.append(_transcribe_beginning(af))
-        print('Done')
 
     return [
         _find_start_fragment(text_fragments, *i)

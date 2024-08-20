@@ -1,4 +1,5 @@
 import multiprocessing as mp
+from tqdm import tqdm
 from mutagen.mp3 import MP3
 from aeneas.task import Task
 from aeneas.executetask import ExecuteTask
@@ -65,8 +66,7 @@ def align_text_with_audio(text_fragments, split_indexes, audio_dir, lang, progre
 
         chapter_results = []
 
-        for pr_res in processing_results:
-            print(f'Chapter {pr_res[0]} done.')
+        for pr_res in tqdm(processing_results, total=len(chapters), desc='Chapters'):
             chapter_results.append(pr_res)
 
             if progress_callback != None:
