@@ -4,7 +4,7 @@ from itertools import accumulate
 from tempfile import NamedTemporaryFile
 from mutagen.mp3 import MP3
 from thefuzz import fuzz
-from backend.utils import *
+from .utils import *
 
 def _trim_audiofile(input_path, output_path, duration):
     (

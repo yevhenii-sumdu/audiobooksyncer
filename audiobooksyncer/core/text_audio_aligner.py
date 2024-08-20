@@ -5,7 +5,7 @@ from aeneas.executetask import ExecuteTask
 from aeneas.textfile import TextFile, TextFragment
 from aeneas.syncmap import SyncMapFragment
 from aeneas.runtimeconfiguration import RuntimeConfiguration
-from backend.utils import get_sorted_files_in_dir
+from .utils import get_sorted_files_in_dir
 
 def _split_into_chapters(text_fragments, split_indexes):
     split_indexes = [0] + split_indexes + [len(text_fragments)]
