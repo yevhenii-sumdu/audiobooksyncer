@@ -54,7 +54,7 @@ def _get_anchor_fragment_indexes(text_fragments, audio_files):
     ]
 
     anchor_fragment_indexes = [
-        next(i for i, cum_length in enumerate(cumulative_fragment_lengths) if char_pos <= cum_length)
+        next(i for i, cum_length in enumerate(cumulative_fragment_lengths) if char_pos < cum_length)
         for char_pos in anchor_char_indexes
     ]
 
