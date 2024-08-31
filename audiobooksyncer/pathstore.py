@@ -6,4 +6,4 @@ class PathStore:
         self.aligned_audio = self.results_dir + 'aligned_audio.json'
         self.sync_map = self.results_dir + 'sync_map.json'
 
-        self.results_dir = self.results_dir[:-1] # remove slash
+        self.results_dir = self.results_dir[:-1]  # remove slash

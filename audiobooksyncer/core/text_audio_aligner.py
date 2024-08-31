@@ -1,20 +1,24 @@
 import multiprocessing as mp
-from tqdm import tqdm
-from mutagen.mp3 import MP3
-from aeneas.task import Task
+
 from aeneas.executetask import ExecuteTask
-from aeneas.textfile import TextFile, TextFragment
-from aeneas.syncmap import SyncMapFragment
 from aeneas.runtimeconfiguration import RuntimeConfiguration
+from aeneas.syncmap import SyncMapFragment
+from aeneas.task import Task
+from aeneas.textfile import TextFile, TextFragment
+from mutagen.mp3 import MP3
+from tqdm import tqdm
+
 from .utils import get_sorted_files_in_dir
+
 
 def _split_into_chapters(text_fragments, split_indexes):
     split_indexes = [0] + split_indexes + [len(text_fragments)]
 
     return [
-        text_fragments[split_indexes[i]:split_indexes[i+1]]
+        text_fragments[split_indexes[i]:split_indexes[i + 1]]
         for i in range(len(split_indexes) - 1)
     ]
+
 
 def _create_task(audio_file, chapter, lang):
     task = Task(config_string=f'task_language={lang}')
@@ -31,6 +35,7 @@ def _create_task(audio_file, chapter, lang):
     task.text_file = textfile
 
     return task
+
 
 def _process_chapter(args):
     idx, audio_file, chapter, lang = args
@@ -51,13 +56,14 @@ def _process_chapter(args):
 
     return idx, intervals
 
+
 def align_text_with_audio(text_fragments, split_indexes, audio_dir, lang, progress_callback=None):
     chapters = _split_into_chapters(text_fragments, split_indexes)
     audio_files = get_sorted_files_in_dir(audio_dir)
 
     if len(chapters) != len(audio_files):
         raise Exception('Chapters != audio files')
-    
+
     with mp.Pool() as pool:
         processing_results = pool.imap_unordered(
             _process_chapter,
@@ -69,7 +75,7 @@ def align_text_with_audio(text_fragments, split_indexes, audio_dir, lang, progre
         for pr_res in tqdm(processing_results, total=len(chapters), desc='Chapters'):
             chapter_results.append(pr_res)
 
-            if progress_callback != None:
+            if progress_callback is not None:
                 progress_callback(len(chapter_results) / len(chapters) * 100)
 
         chapter_results.sort(key=lambda x: x[0])

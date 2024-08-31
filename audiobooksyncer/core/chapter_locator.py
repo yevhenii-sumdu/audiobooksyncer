@@ -1,11 +1,14 @@
 import re
-import ffmpeg
-from tqdm import tqdm
 from itertools import accumulate
 from tempfile import NamedTemporaryFile
+
+import ffmpeg
 from mutagen.mp3 import MP3
 from thefuzz import fuzz
+from tqdm import tqdm
+
 from .utils import *
+
 
 def _trim_audiofile(input_path, output_path, duration):
     (
@@ -15,6 +18,7 @@ def _trim_audiofile(input_path, output_path, duration):
         .output(output_path, f=ffmpeg.probe(input_path)['format']['format_name'])
         .run(overwrite_output=True, quiet=True)
     )
+
 
 def _transcribe_beginning(audio_path):
     import whisper
@@ -30,6 +34,7 @@ def _transcribe_beginning(audio_path):
 
     return result['text']
 
+
 def _get_anchor_fragment_indexes(text_fragments, audio_files):
     audio_durations = [MP3(f).info.length for f in audio_files]
 
@@ -39,25 +44,27 @@ def _get_anchor_fragment_indexes(text_fragments, audio_files):
     cumulative_fragment_lengths = list(accumulate(len(fragment) for fragment in text_fragments))
 
     cumulative_audio_fractions = [
-        cum_duration / total_audio_duration 
+        cum_duration / total_audio_duration
         for cum_duration in accumulate(audio_durations[:-1])
     ]
 
     anchor_char_indexes = [
-        round((total_characters - 1) * fraction) 
+        round((total_characters - 1) * fraction)
         for fraction in cumulative_audio_fractions
     ]
-    
+
     anchor_fragment_indexes = [
         next(i for i, cum_length in enumerate(cumulative_fragment_lengths) if char_pos <= cum_length)
         for char_pos in anchor_char_indexes
     ]
-    
+
     return anchor_fragment_indexes
 
-def _clean_string(str):
-    str = re.sub(r'[^\w]', '', str)
-    return str.lower()
+
+def _clean_string(string):
+    string = re.sub(r'\W', '', string)
+    return string.lower()
+
 
 def _find_start_fragment(text_fragments, anchor_fragment_index, transcription):
     window_margin = 20
@@ -74,11 +81,11 @@ def _find_start_fragment(text_fragments, anchor_fragment_index, transcription):
     for i in range(len(window)):
         concatenated_fragment = ''
         j = i
-        
+
         while len(concatenated_fragment) < len(transcription) and j < len(window):
             concatenated_fragment += _clean_string(window[j])
             j += 1
-        
+
         if len(concatenated_fragment) >= len(transcription):
             score = fuzz.ratio(concatenated_fragment[:len(transcription)], transcription)
 
@@ -88,9 +95,10 @@ def _find_start_fragment(text_fragments, anchor_fragment_index, transcription):
 
     return window_start + best_match_index
 
+
 def locate_chapters(text_fragments, audio_dir):
     audio_files = get_sorted_files_in_dir(audio_dir)
-    
+
     anchor_fragment_indexes = _get_anchor_fragment_indexes(text_fragments, audio_files)
 
     transcriptions = []

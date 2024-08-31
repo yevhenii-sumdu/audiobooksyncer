@@ -1,7 +1,8 @@
-import sys
 import re
+import sys
 
-class _ProgressCapturer():
+
+class _ProgressCapturer:
     def __init__(self, progress_callback):
         self.progress_callback = progress_callback
         self.second_progressbar = False
@@ -11,13 +12,13 @@ class _ProgressCapturer():
         if self.progress_callback is not None:
             self.orig_stderr_write = sys.stderr.write
             sys.stderr.write = lambda s: (self.orig_stderr_write(s), self.handle_progress(s))
-    
+
     def __exit__(self, exc_type, exc_value, tb):
         if self.progress_callback is not None:
             sys.stderr.write = self.orig_stderr_write
 
-    def handle_progress(self, str):
-        match = re.search(r'Batches:\s+(\d+)%', str)
+    def handle_progress(self, string):
+        match = re.search(r'Batches:\s+(\d+)%', string)
 
         if match:
             progress = int(match.group(1)) / 2
@@ -31,6 +32,7 @@ class _ProgressCapturer():
             if progress != self.last_progress:
                 self.last_progress = progress
                 self.progress_callback(progress)
+
 
 def align_texts(src_path, tgt_path, progress_callback=None):
     from bertalign import Bertalign

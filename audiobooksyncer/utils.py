@@ -1,15 +1,18 @@
-import os
 import json
+import os
 from functools import wraps
+
 
 def save_to_json(data, file_path):
     with open(file_path, 'w') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
+
 def load_from_json(file_path):
     with open(file_path, 'r') as f:
         return json.load(f)
-    
+
+
 def cache(cache_file):
     def decorator(func):
         @wraps(func)
@@ -21,7 +24,7 @@ def cache(cache_file):
                 res = func(*args, **kwargs)
                 save_to_json(res, cache_file)
                 return res
-        
+
         return wrapper
-    
+
     return decorator
