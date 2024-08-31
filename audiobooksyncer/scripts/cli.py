@@ -1,15 +1,16 @@
 import hashlib
+import os
 import warnings
 from pathlib import Path
 
 import click
 
-from ..core.chapter_locator import *
-from ..core.output_generator import *
-from ..core.text_audio_aligner import *
-from ..core.texts_aligner import *
-from ..pathstore import *
-from ..utils import *
+from ..core.chapter_locator import locate_chapters
+from ..core.output_generator import get_sync_map
+from ..core.text_audio_aligner import align_text_with_audio
+from ..core.texts_aligner import align_texts
+from ..pathstore import PathStore
+from ..utils import cache, save_to_json
 
 warnings.filterwarnings('ignore')
 
@@ -38,7 +39,8 @@ def main(src_path, tgt_path, audio_dir, yes):
     c_locate_chapters = cache(paths.chapter_locations)(locate_chapters)
     c_align_text_with_audio = cache(paths.aligned_audio)(align_text_with_audio)
 
-    ac = lambda: _ask_to_continue(yes)
+    def ac():
+        _ask_to_continue(yes)
 
     os.environ['TOKENIZERS_PARALLELISM'] = 'true'
 

@@ -11,7 +11,12 @@ class _ProgressCapturer:
     def __enter__(self):
         if self.progress_callback is not None:
             self.orig_stderr_write = sys.stderr.write
-            sys.stderr.write = lambda s: (self.orig_stderr_write(s), self.handle_progress(s))
+
+            def new_stderr_write(s):
+                self.orig_stderr_write(s)
+                self.handle_progress(s)
+
+            sys.stderr.write = new_stderr_write
 
     def __exit__(self, exc_type, exc_value, tb):
         if self.progress_callback is not None:

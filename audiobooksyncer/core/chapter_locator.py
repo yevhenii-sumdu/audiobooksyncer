@@ -7,7 +7,7 @@ from mutagen.mp3 import MP3
 from thefuzz import fuzz
 from tqdm import tqdm
 
-from .utils import *
+from .utils import get_sorted_files_in_dir
 
 
 def _trim_audiofile(input_path, output_path, duration):
