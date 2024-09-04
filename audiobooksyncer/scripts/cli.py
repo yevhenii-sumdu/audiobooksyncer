@@ -1,7 +1,6 @@
 import hashlib
 import os
 import warnings
-from pathlib import Path
 
 import click
 
@@ -44,8 +43,8 @@ def main(src_path, tgt_path, audio_dir, yes):
 
     os.environ['TOKENIZERS_PARALLELISM'] = 'true'
 
-    print(f'Saving results to {paths.results_dir}')
-    Path(paths.results_dir).mkdir(exist_ok=True)
+    print(f'Saving results to {paths.results_dir}/')
+    paths.results_dir.mkdir(exist_ok=True)
 
     print('\nSTEP 1: Aligning text and translation')
     aligned_texts = c_align_texts(src_path, tgt_path)
