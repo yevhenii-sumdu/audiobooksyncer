@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 from functools import wraps
@@ -28,3 +29,18 @@ def cache(cache_file):
         return wrapper
 
     return decorator
+
+
+def hash_files(*paths, hash_length=8):
+    digest_obj = hashlib.md5()
+    buffer_size = 2 ** 18
+
+    buffer = bytearray(buffer_size)  # Reusable buffer to reduce allocations.
+    view = memoryview(buffer)
+
+    for path in paths:
+        with open(path, 'rb') as f:
+            while size := f.readinto(buffer):
+                digest_obj.update(view[:size])
+
+    return digest_obj.hexdigest()[:hash_length]

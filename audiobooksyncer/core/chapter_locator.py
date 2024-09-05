@@ -96,9 +96,7 @@ def _find_start_fragment(text_fragments, anchor_fragment_index, transcription):
     return window_start + best_match_index
 
 
-def locate_chapters(text_fragments, audio_dir):
-    audio_files = get_sorted_files_in_dir(audio_dir)
-
+def locate_chapters(text_fragments, audio_files):
     anchor_fragment_indexes = _get_anchor_fragment_indexes(text_fragments, audio_files)
 
     transcriptions = []

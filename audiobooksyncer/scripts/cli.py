@@ -8,16 +8,11 @@ from ..core.chapter_locator import locate_chapters
 from ..core.output_generator import get_sync_map
 from ..core.text_audio_aligner import align_text_with_audio
 from ..core.texts_aligner import align_texts
+from ..core.utils import get_sorted_files_in_dir
 from ..pathstore import PathStore
-from ..utils import cache, save_to_json
+from ..utils import cache, save_to_json, hash_files
 
 warnings.filterwarnings('ignore')
-
-
-def _get_hash(*paths):
-    abs_paths = [os.path.abspath(p) for p in paths]
-    return hashlib.md5(''.join(abs_paths).encode()).hexdigest()[:8]
-
 
 def _ask_to_continue(skip_confirmation):
     if skip_confirmation:
@@ -32,7 +27,9 @@ def _ask_to_continue(skip_confirmation):
 @click.argument('audio_dir', type=click.Path(exists=True, file_okay=False))
 @click.option('--yes', '-y', is_flag=True)
 def main(src_path, tgt_path, audio_dir, yes):
-    paths = PathStore(_get_hash(src_path, tgt_path, audio_dir))
+    audio_files = get_sorted_files_in_dir(audio_dir)
+
+    paths = PathStore(hash_files(src_path, tgt_path, *audio_files))
 
     c_align_texts = cache(paths.aligned_texts)(align_texts)
     c_locate_chapters = cache(paths.chapter_locations)(locate_chapters)
@@ -53,12 +50,12 @@ def main(src_path, tgt_path, audio_dir, yes):
     ac()
 
     print('\nSTEP 2: Locating where each audio file starts')
-    split_indexes = c_locate_chapters(src_fragments, audio_dir)
+    split_indexes = c_locate_chapters(src_fragments, audio_files)
 
     ac()
 
     print('\nSTEP 3: Aligning text and audio')
-    aligned_audio = c_align_text_with_audio(src_fragments, split_indexes, audio_dir, aligned_texts['src_lang_code'])
+    aligned_audio = c_align_text_with_audio(src_fragments, split_indexes, audio_files, aligned_texts['src_lang_code'])
 
     ac()
 

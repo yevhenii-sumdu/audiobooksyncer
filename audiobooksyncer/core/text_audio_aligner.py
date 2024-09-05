@@ -57,9 +57,8 @@ def _process_chapter(args):
     return idx, intervals
 
 
-def align_text_with_audio(text_fragments, split_indexes, audio_dir, lang, progress_callback=None):
+def align_text_with_audio(text_fragments, split_indexes, audio_files, lang, progress_callback=None):
     chapters = _split_into_chapters(text_fragments, split_indexes)
-    audio_files = get_sorted_files_in_dir(audio_dir)
 
     if len(chapters) != len(audio_files):
         raise Exception('Chapters != audio files')
