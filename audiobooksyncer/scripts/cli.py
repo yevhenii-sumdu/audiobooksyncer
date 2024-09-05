@@ -1,4 +1,3 @@
-import hashlib
 import os
 import warnings
 
@@ -13,6 +12,7 @@ from ..pathstore import PathStore
 from ..utils import cache, save_to_json, hash_files
 
 warnings.filterwarnings('ignore')
+
 
 def _ask_to_continue(skip_confirmation):
     if skip_confirmation:

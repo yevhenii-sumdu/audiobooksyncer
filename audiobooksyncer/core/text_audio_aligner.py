@@ -8,8 +8,6 @@ from aeneas.textfile import TextFile, TextFragment
 from mutagen.mp3 import MP3
 from tqdm import tqdm
 
-from .utils import get_sorted_files_in_dir
-
 
 def _split_into_chapters(text_fragments, split_indexes):
     split_indexes = [0] + split_indexes + [len(text_fragments)]

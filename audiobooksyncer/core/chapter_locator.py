@@ -7,15 +7,12 @@ from mutagen.mp3 import MP3
 from thefuzz import fuzz
 from tqdm import tqdm
 
-from .utils import get_sorted_files_in_dir
-
 
 def _trim_audiofile(input_path, output_path, duration):
     (
         ffmpeg
         .input(input_path)
-        .filter('atrim', duration=duration)
-        .output(output_path, f=ffmpeg.probe(input_path)['format']['format_name'])
+        .output(output_path, to=duration, f='wav')
         .run(overwrite_output=True, quiet=True)
     )
 
