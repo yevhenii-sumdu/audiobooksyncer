@@ -3,9 +3,10 @@ from itertools import accumulate
 from tempfile import NamedTemporaryFile
 
 import ffmpeg
-from mutagen.mp3 import MP3
 from thefuzz import fuzz
 from tqdm import tqdm
+
+from .utils import get_audio_duration
 
 
 def _trim_audiofile(input_path, output_path, duration):
@@ -33,7 +34,7 @@ def _transcribe_beginning(audio_path):
 
 
 def _get_anchor_fragment_indexes(text_fragments, audio_files):
-    audio_durations = [MP3(f).info.length for f in audio_files]
+    audio_durations = [get_audio_duration(f) for f in audio_files]
 
     total_audio_duration = sum(audio_durations)
     total_characters = sum(len(fragment) for fragment in text_fragments)

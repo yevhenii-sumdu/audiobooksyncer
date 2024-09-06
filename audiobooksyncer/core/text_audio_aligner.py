@@ -5,8 +5,9 @@ from aeneas.runtimeconfiguration import RuntimeConfiguration
 from aeneas.syncmap import SyncMapFragment
 from aeneas.task import Task
 from aeneas.textfile import TextFile, TextFragment
-from mutagen.mp3 import MP3
 from tqdm import tqdm
+
+from .utils import get_audio_duration
 
 
 def _split_into_chapters(text_fragments, split_indexes):
@@ -88,7 +89,6 @@ def align_text_with_audio(text_fragments, split_indexes, audio_files, lang, prog
 
         result.extend(intervals)
 
-        audio_file_duration = int(MP3(audio_files[idx]).info.length * 1000)
-        timeshift += audio_file_duration
+        timeshift += int(get_audio_duration(audio_files[idx]) * 1000)
 
     return result
