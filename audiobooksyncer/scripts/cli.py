@@ -46,16 +46,17 @@ def main(src_path, tgt_path, audio_dir, yes):
     print('\nSTEP 1: Aligning text and translation')
     aligned_texts = c_align_texts(src_path, tgt_path)
     src_fragments = [i['src'] for i in aligned_texts['data']]
+    src_lang = aligned_texts['src_lang_code']
 
     ac()
 
     print('\nSTEP 2: Locating where each audio file starts')
-    split_indexes = c_locate_chapters(src_fragments, audio_files)
+    split_indexes = c_locate_chapters(src_fragments, audio_files, src_lang)
 
     ac()
 
     print('\nSTEP 3: Aligning text and audio')
-    aligned_audio = c_align_text_with_audio(src_fragments, split_indexes, audio_files, aligned_texts['src_lang_code'])
+    aligned_audio = c_align_text_with_audio(src_fragments, split_indexes, audio_files, src_lang)
 
     ac()
 

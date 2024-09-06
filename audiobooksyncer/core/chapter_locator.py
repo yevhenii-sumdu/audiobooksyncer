@@ -18,7 +18,7 @@ def _trim_audiofile(input_path, output_path, duration):
     )
 
 
-def _transcribe_beginning(audio_path):
+def _transcribe_beginning(audio_path, lang=None):
     import whisper
 
     duration = 60
@@ -28,7 +28,7 @@ def _transcribe_beginning(audio_path):
         _trim_audiofile(audio_path, temp_file.name, duration)
 
         model = whisper.load_model(model_name)
-        result = model.transcribe(temp_file.name)
+        result = model.transcribe(temp_file.name, language=lang)
 
     return result['text']
 
@@ -94,12 +94,12 @@ def _find_start_fragment(text_fragments, anchor_fragment_index, transcription):
     return window_start + best_match_index
 
 
-def locate_chapters(text_fragments, audio_files):
+def locate_chapters(text_fragments, audio_files, lang=None):
     anchor_fragment_indexes = _get_anchor_fragment_indexes(text_fragments, audio_files)
 
     transcriptions = []
     for af in tqdm(audio_files[1:], desc='Audio files'):
-        transcriptions.append(_transcribe_beginning(af))
+        transcriptions.append(_transcribe_beginning(af, lang))
 
     return [
         _find_start_fragment(text_fragments, *i)
