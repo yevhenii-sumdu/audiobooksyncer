@@ -94,12 +94,15 @@ def _find_start_fragment(text_fragments, anchor_fragment_index, transcription):
     return window_start + best_match_index
 
 
-def locate_chapters(text_fragments, audio_files, lang=None):
+def locate_chapters(text_fragments, audio_files, lang=None, progress_callback=None):
     anchor_fragment_indexes = _get_anchor_fragment_indexes(text_fragments, audio_files)
 
     transcriptions = []
     for af in tqdm(audio_files[1:], desc='Audio files'):
         transcriptions.append(_transcribe_beginning(af, lang))
+
+        if progress_callback is not None:
+            progress_callback(len(transcriptions) / (len(audio_files) - 1) * 100)
 
     return [
         _find_start_fragment(text_fragments, *i)
