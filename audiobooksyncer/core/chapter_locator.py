@@ -65,7 +65,7 @@ def _clean_string(string):
 
 
 def _find_start_fragment(text_fragments, anchor_fragment_index, transcription):
-    window_margin = 20
+    window_margin = 500
     window_start = max(anchor_fragment_index - window_margin, 0)
     window_end = min(anchor_fragment_index + window_margin, len(text_fragments) - 1)
 
