@@ -40,7 +40,7 @@ class _ProgressCapturer:
 
 
 def align_texts(src_path, tgt_path, progress_callback=None):
-    from bertalign import Bertalign
+    from bertalign import Bertalign, load_model
 
     with open(src_path, 'r') as f:
         src = f.read()
@@ -48,7 +48,7 @@ def align_texts(src_path, tgt_path, progress_callback=None):
         tgt = f.read()
 
     with _ProgressCapturer(progress_callback):
-        aligner = Bertalign(src, tgt)
+        aligner = Bertalign(src, tgt, load_model())
 
     aligner.align_sents()
 

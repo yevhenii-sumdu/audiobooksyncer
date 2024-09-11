@@ -18,16 +18,12 @@ def _trim_audiofile(input_path, output_path, duration):
     )
 
 
-def _transcribe_beginning(audio_path, lang=None):
-    import whisper
-
+def _transcribe_beginning(audio_path, model, lang=None):
     duration = 60
-    model_name = 'base'
 
     with NamedTemporaryFile() as temp_file:
         _trim_audiofile(audio_path, temp_file.name, duration)
 
-        model = whisper.load_model(model_name)
         result = model.transcribe(temp_file.name, language=lang)
 
     return result['text']
@@ -98,11 +94,16 @@ def _find_start_fragment(text_fragments, anchor_fragment_index, transcription):
 
 
 def locate_chapters(text_fragments, audio_files, lang=None, progress_callback=None):
+    import whisper
+
+    model_name = 'base'
+    model = whisper.load_model(model_name)
+
     anchor_fragment_indexes = _get_anchor_fragment_indexes(text_fragments, audio_files)
 
     transcriptions = []
     for af in tqdm(audio_files[1:], desc='Audio files'):
-        transcriptions.append(_transcribe_beginning(af, lang))
+        transcriptions.append(_transcribe_beginning(af, model, lang))
 
         if progress_callback is not None:
             progress_callback(len(transcriptions) / (len(audio_files) - 1) * 100)
