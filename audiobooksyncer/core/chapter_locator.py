@@ -1,3 +1,4 @@
+import multiprocessing as mp
 import re
 from itertools import accumulate
 from tempfile import NamedTemporaryFile
@@ -18,7 +19,7 @@ def _trim_audiofile(input_path, output_path, duration):
     )
 
 
-def _transcribe_beginning(audio_path, model, lang=None):
+def _transcribe_beginning(audio_path, model, lang):
     duration = 60
 
     with NamedTemporaryFile() as temp_file:
@@ -93,7 +94,7 @@ def _find_start_fragment(text_fragments, anchor_fragment_index, transcription):
     return window_start + best_match_index
 
 
-def locate_chapters(text_fragments, audio_files, lang=None, progress_callback=None):
+def _locate_chapters(text_fragments, audio_files, lang):
     import whisper
 
     model_name = 'base'
@@ -105,10 +106,12 @@ def locate_chapters(text_fragments, audio_files, lang=None, progress_callback=No
     for af in tqdm(audio_files[1:], desc='Audio files'):
         transcriptions.append(_transcribe_beginning(af, model, lang))
 
-        if progress_callback is not None:
-            progress_callback(len(transcriptions) / (len(audio_files) - 1) * 100)
-
     return [
         _find_start_fragment(text_fragments, *i)
         for i in zip(anchor_fragment_indexes, transcriptions)
     ]
+
+
+def locate_chapters(text_fragments, audio_files, lang=None):
+    with mp.Pool(1) as pool:
+        return pool.apply(_locate_chapters, (text_fragments, audio_files, lang))

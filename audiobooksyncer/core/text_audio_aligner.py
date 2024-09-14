@@ -56,7 +56,7 @@ def _process_chapter(args):
     return idx, intervals
 
 
-def align_text_with_audio(text_fragments, split_indexes, audio_files, lang, progress_callback=None):
+def align_text_with_audio(text_fragments, split_indexes, audio_files, lang):
     chapters = _split_into_chapters(text_fragments, split_indexes)
 
     if len(chapters) != len(audio_files):
@@ -72,9 +72,6 @@ def align_text_with_audio(text_fragments, split_indexes, audio_files, lang, prog
 
         for pr_res in tqdm(processing_results, total=len(chapters), desc='Chapters'):
             chapter_results.append(pr_res)
-
-            if progress_callback is not None:
-                progress_callback(len(chapter_results) / len(chapters) * 100)
 
         chapter_results.sort(key=lambda x: x[0])
 
