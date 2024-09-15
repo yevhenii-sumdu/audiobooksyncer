@@ -1,4 +1,3 @@
-import multiprocessing as mp
 import re
 from itertools import accumulate
 from tempfile import NamedTemporaryFile
@@ -7,7 +6,7 @@ import ffmpeg
 from thefuzz import fuzz
 from tqdm import tqdm
 
-from .utils import get_audio_duration
+from .utils import get_audio_duration, run_in_subprocess
 
 
 def _trim_audiofile(input_path, output_path, duration):
@@ -94,7 +93,7 @@ def _find_start_fragment(text_fragments, anchor_fragment_index, transcription):
     return window_start + best_match_index
 
 
-def _locate_chapters(text_fragments, audio_files, lang):
+def _locate_chapters(text_fragments, audio_files, lang=None):
     import whisper
 
     model_name = 'base'
@@ -112,6 +111,4 @@ def _locate_chapters(text_fragments, audio_files, lang):
     ]
 
 
-def locate_chapters(text_fragments, audio_files, lang=None):
-    with mp.Pool(1) as pool:
-        return pool.apply(_locate_chapters, (text_fragments, audio_files, lang))
+locate_chapters = run_in_subprocess(_locate_chapters)

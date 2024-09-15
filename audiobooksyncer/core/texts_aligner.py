@@ -1,4 +1,4 @@
-import multiprocessing as mp
+from audiobooksyncer.core.utils import run_in_subprocess
 
 
 def _align_texts(src_path, tgt_path):
@@ -15,6 +15,4 @@ def _align_texts(src_path, tgt_path):
     return aligner.get_result()
 
 
-def align_texts(src_path, tgt_path):
-    with mp.Pool(1) as pool:
-        return pool.apply(_align_texts, (src_path, tgt_path))
+align_texts = run_in_subprocess(_align_texts)

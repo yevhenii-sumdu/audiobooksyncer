@@ -2,6 +2,9 @@ import hashlib
 import json
 import os
 from functools import wraps
+from typing import Callable, TypeVar
+
+C = TypeVar('C', bound=Callable)
 
 
 def save_to_json(data, file_path):
@@ -15,7 +18,7 @@ def load_from_json(file_path):
 
 
 def cache(cache_file):
-    def decorator(func):
+    def decorator(func: C) -> C:
         @wraps(func)
         def wrapper(*args, **kwargs):
             if os.path.isfile(cache_file):
