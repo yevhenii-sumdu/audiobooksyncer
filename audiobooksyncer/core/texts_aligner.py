@@ -1,7 +1,8 @@
 from audiobooksyncer.core.utils import run_in_subprocess
 
 
-def _align_texts(src_path, tgt_path):
+@run_in_subprocess
+def align_texts(src_path, tgt_path):
     from bertalign import Bertalign, load_model
 
     with open(src_path, 'r') as f:
@@ -13,6 +14,3 @@ def _align_texts(src_path, tgt_path):
     aligner.align_sents()
 
     return aligner.get_result()
-
-
-align_texts = run_in_subprocess(_align_texts)

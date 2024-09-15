@@ -93,7 +93,8 @@ def _find_start_fragment(text_fragments, anchor_fragment_index, transcription):
     return window_start + best_match_index
 
 
-def _locate_chapters(text_fragments, audio_files, lang=None):
+@run_in_subprocess
+def locate_chapters(text_fragments, audio_files, lang=None):
     import whisper
 
     model_name = 'base'
@@ -109,6 +110,3 @@ def _locate_chapters(text_fragments, audio_files, lang=None):
         _find_start_fragment(text_fragments, *i)
         for i in zip(anchor_fragment_indexes, transcriptions)
     ]
-
-
-locate_chapters = run_in_subprocess(_locate_chapters)
