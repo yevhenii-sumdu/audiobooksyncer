@@ -29,7 +29,7 @@ def cache(cache_file):
                 save_to_json(res, cache_file)
                 return res
 
-        return wrapper
+        return wrapper  # type: ignore[return-value]
 
     return decorator
 
