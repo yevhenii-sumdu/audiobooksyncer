@@ -13,7 +13,6 @@ dependencies = [
     "openai-whisper @ git+https://github.com/openai/whisper.git@v20231117"
 ]
 
-
 [project.optional-dependencies]
 cli = [
   "click"
@@ -21,9 +20,6 @@ cli = [
 
 [project.scripts]
 audiobooksyncer-cli = "audiobooksyncer.scripts.cli:main"
-
-[tool.ruff.lint]
-extend-select = ["I"]
 
 [tool.ruff.format]
 quote-style = "single"
