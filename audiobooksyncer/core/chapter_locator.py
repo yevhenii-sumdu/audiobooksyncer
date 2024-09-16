@@ -11,8 +11,7 @@ from .utils import get_audio_duration, run_in_subprocess
 
 def _trim_audiofile(input_path, output_path, duration):
     (
-        ffmpeg
-        .input(input_path)
+        ffmpeg.input(input_path)
         .output(output_path, to=duration, f='wav')
         .run(overwrite_output=True, quiet=True)
     )
@@ -35,7 +34,9 @@ def _get_anchor_fragment_indexes(text_fragments, audio_files):
     total_audio_duration = sum(audio_durations)
     total_characters = sum(len(fragment) for fragment in text_fragments)
 
-    cumulative_fragment_lengths = list(accumulate(len(fragment) for fragment in text_fragments))
+    cumulative_fragment_lengths = list(
+        accumulate(len(fragment) for fragment in text_fragments)
+    )
 
     cumulative_audio_fractions = [
         cum_duration / total_audio_duration
@@ -48,7 +49,11 @@ def _get_anchor_fragment_indexes(text_fragments, audio_files):
     ]
 
     anchor_fragment_indexes = [
-        next(i for i, cum_length in enumerate(cumulative_fragment_lengths) if char_pos < cum_length)
+        next(
+            index
+            for index, cum_length in enumerate(cumulative_fragment_lengths)
+            if char_pos < cum_length
+        )
         for char_pos in anchor_char_indexes
     ]
 
@@ -68,7 +73,7 @@ def _find_start_fragment(text_fragments, anchor_fragment_index, transcription):
     window_start = max(anchor_fragment_index - window_margin, 0)
     window_end = min(anchor_fragment_index + window_margin, len(text_fragments) - 1)
 
-    window = text_fragments[window_start:window_end + 1]
+    window = text_fragments[window_start : window_end + 1]
 
     best_match_score = 0
     best_match_index = 0
@@ -84,7 +89,9 @@ def _find_start_fragment(text_fragments, anchor_fragment_index, transcription):
             j += 1
 
         if len(concatenated_fragment) >= len(transcription):
-            score = fuzz.ratio(concatenated_fragment[:len(transcription)], transcription)
+            score = fuzz.ratio(
+                concatenated_fragment[: len(transcription)], transcription
+            )
 
             if score > best_match_score:
                 best_match_score = score

@@ -1,23 +1,29 @@
 [build-system]
-requires = ['setuptools']
-build-backend = 'setuptools.build_meta'
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
 
 [project]
-name = 'audiobooksyncer'
-version = '1.0.0'
+name = "audiobooksyncer"
+version = "1.0.0"
 dependencies = [
-    'aeneas == 1.7.3.0',
-    'ffmpeg-python >= 0.2.0, < 1',
-    'thefuzz >= 0.22.1, < 1',
-    'bertalign @ git+https://github.com/atlantis-11/bertalign.git',
-    'openai-whisper @ git+https://github.com/openai/whisper.git@v20231117'
+    "aeneas == 1.7.3.0",
+    "ffmpeg-python >= 0.2.0, < 1",
+    "thefuzz >= 0.22.1, < 1",
+    "bertalign @ git+https://github.com/atlantis-11/bertalign.git",
+    "openai-whisper @ git+https://github.com/openai/whisper.git@v20231117"
 ]
 
 
 [project.optional-dependencies]
 cli = [
-  'click'
+  "click"
 ]
 
 [project.scripts]
-audiobooksyncer-cli = 'audiobooksyncer.scripts.cli:main'
+audiobooksyncer-cli = "audiobooksyncer.scripts.cli:main"
+
+[tool.ruff.lint]
+extend-select = ["I"]
+
+[tool.ruff.format]
+quote-style = "single"

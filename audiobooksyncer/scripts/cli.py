@@ -9,7 +9,7 @@ from ..core.text_audio_aligner import align_text_with_audio
 from ..core.texts_aligner import align_texts
 from ..core.utils import get_sorted_files_in_dir
 from ..pathstore import PathStore
-from ..utils import cache, save_to_json, hash_files
+from ..utils import cache, hash_files, save_to_json
 
 warnings.filterwarnings('ignore')
 
@@ -56,7 +56,9 @@ def main(src_path, tgt_path, audio_dir, yes):
     ac()
 
     print('\nSTEP 3: Aligning text and audio')
-    aligned_audio = c_align_text_with_audio(src_fragments, split_indexes, audio_files, src_lang)
+    aligned_audio = c_align_text_with_audio(
+        src_fragments, split_indexes, audio_files, src_lang
+    )
 
     ac()
 

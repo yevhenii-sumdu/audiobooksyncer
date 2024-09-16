@@ -14,7 +14,7 @@ def _split_into_chapters(text_fragments, split_indexes):
     split_indexes = [0] + split_indexes + [len(text_fragments)]
 
     return [
-        text_fragments[split_indexes[i]:split_indexes[i + 1]]
+        text_fragments[split_indexes[i] : split_indexes[i + 1]]
         for i in range(len(split_indexes) - 1)
     ]
 
@@ -45,13 +45,17 @@ def _process_chapter(args):
     ExecuteTask(task, rconf=rconf).execute()
 
     for node in list(task.sync_map.fragments_tree.dfs):
+        # fmt: off
         if (node.value is not None) and (node.value.fragment_type != SyncMapFragment.REGULAR):
             node.remove()
 
-    intervals = [{
-        'begin': int(float(fr.interval.begin) * 1000),
-        'end': int(float(fr.interval.end) * 1000)
-    } for fr in task.sync_map.fragments]
+    intervals = [
+        {
+            'begin': int(float(fr.interval.begin) * 1000),
+            'end': int(float(fr.interval.end) * 1000),
+        }
+        for fr in task.sync_map.fragments
+    ]
 
     return idx, intervals
 
@@ -65,7 +69,10 @@ def align_text_with_audio(text_fragments, split_indexes, audio_files, lang):
     with mp.Pool() as pool:
         processing_results = pool.imap_unordered(
             _process_chapter,
-            [(idx, af, ch, lang) for idx, (af, ch) in enumerate(zip(audio_files, chapters))]
+            [
+                (idx, af, ch, lang)
+                for idx, (af, ch) in enumerate(zip(audio_files, chapters))
+            ],
         )
 
         chapter_results = []

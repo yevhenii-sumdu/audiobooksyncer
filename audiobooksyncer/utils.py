@@ -36,7 +36,7 @@ def cache(cache_file):
 
 def hash_files(*paths, hash_length=8):
     digest_obj = hashlib.md5()
-    buffer_size = 2 ** 18
+    buffer_size = 2**18
 
     buffer = bytearray(buffer_size)  # Reusable buffer to reduce allocations.
     view = memoryview(buffer)
