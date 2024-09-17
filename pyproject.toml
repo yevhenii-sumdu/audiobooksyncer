@@ -6,9 +6,9 @@ build-backend = "setuptools.build_meta"
 name = "audiobooksyncer"
 version = "1.0.0"
 dependencies = [
-    "aeneas == 1.7.3.0",
     "ffmpeg-python >= 0.2.0, < 1",
     "thefuzz >= 0.22.1, < 1",
+    "aeneas @ git+https://github.com/atlantis-11/aeneas.git",
     "bertalign @ git+https://github.com/atlantis-11/bertalign.git",
     "openai-whisper @ git+https://github.com/openai/whisper.git@v20231117"
 ]
