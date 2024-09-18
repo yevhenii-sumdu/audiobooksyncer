@@ -1,4 +1,4 @@
-from audiobooksyncer.core.utils import run_in_subprocess
+from .utils import run_in_subprocess
 
 
 @run_in_subprocess
