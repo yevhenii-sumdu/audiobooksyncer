@@ -44,17 +44,13 @@ def _process_chapter(args):
     rconf[RuntimeConfiguration.DTW_MARGIN] = 120
     ExecuteTask(task, rconf=rconf).execute()
 
-    for node in list(task.sync_map.fragments_tree.dfs):
-        # fmt: off
-        if (node.value is not None) and (node.value.fragment_type != SyncMapFragment.REGULAR):
-            node.remove()
-
     intervals = [
         {
             'begin': int(float(fr.interval.begin) * 1000),
             'end': int(float(fr.interval.end) * 1000),
         }
         for fr in task.sync_map.fragments
+        if fr.fragment_type == SyncMapFragment.REGULAR
     ]
 
     return idx, intervals
@@ -88,11 +84,14 @@ def align_text_with_audio(text_fragments, split_indexes, audio_files, lang):
 
     for idx, intervals in chapter_results:
         for interval in intervals:
-            interval['begin'] = interval['begin'] + timeshift
-            interval['end'] = interval['end'] + timeshift
+            interval['begin'] += timeshift
+            interval['end'] += timeshift
 
-        result.extend(intervals)
+        result += intervals
 
         timeshift += int(get_audio_duration(audio_files[idx]) * 1000)
+
+        # remove a gap between chapters
+        result[-1]['end'] = timeshift
 
     return result
