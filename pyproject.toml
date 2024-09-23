@@ -21,6 +21,9 @@ cli = [
 [project.scripts]
 audiobooksyncer-cli = "audiobooksyncer.scripts.cli:main"
 
+[tool.setuptools.packages.find]
+include = ["audiobooksyncer*"]
+
 [tool.ruff.format]
 quote-style = "single"
 
