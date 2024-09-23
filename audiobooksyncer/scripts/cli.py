@@ -1,4 +1,3 @@
-import os
 import warnings
 
 import click
@@ -37,8 +36,6 @@ def main(src_path, tgt_path, audio_dir, yes):
 
     def ac():
         _ask_to_continue(yes)
-
-    os.environ['TOKENIZERS_PARALLELISM'] = 'true'
 
     print(f'Saving results to {paths.results_dir}/')
     paths.results_dir.mkdir(exist_ok=True)
