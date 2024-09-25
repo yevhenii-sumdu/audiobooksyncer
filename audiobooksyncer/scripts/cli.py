@@ -6,9 +6,8 @@ from ..core.chapter_locator import locate_chapters
 from ..core.output_generator import get_sync_map
 from ..core.text_audio_aligner import align_text_with_audio
 from ..core.texts_aligner import align_texts
-from ..core.utils import get_sorted_files_in_dir
 from ..pathstore import PathStore
-from ..utils import cache, hash_files, save_to_json
+from ..utils import cache, get_audio_files, hash_files, is_text_plain, save_to_json
 
 warnings.filterwarnings('ignore')
 
@@ -26,7 +25,19 @@ def _ask_to_continue(skip_confirmation):
 @click.argument('audio_dir', type=click.Path(exists=True, file_okay=False))
 @click.option('--yes', '-y', is_flag=True)
 def main(src_path, tgt_path, audio_dir, yes):
-    audio_files = get_sorted_files_in_dir(audio_dir)
+    audio_files = get_audio_files(audio_dir)
+
+    if len(audio_files) == 0:
+        print(f'No audio files in {audio_dir}')
+        exit(1)
+
+    if not is_text_plain(src_path):
+        print(f'{src_path} is not plain text')
+        exit(1)
+
+    if not is_text_plain(tgt_path):
+        print(f'{tgt_path} is not plain text')
+        exit(1)
 
     paths = PathStore(hash_files(src_path, tgt_path, *audio_files))
 

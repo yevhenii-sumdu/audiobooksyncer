@@ -1,8 +1,10 @@
 import hashlib
 import json
-import os
 from functools import wraps
+from pathlib import Path
 from typing import Callable, TypeVar
+
+import magic
 
 C = TypeVar('C', bound=Callable)
 
@@ -21,7 +23,7 @@ def cache(cache_file):
     def decorator(func: C) -> C:
         @wraps(func)
         def wrapper(*args, **kwargs):
-            if os.path.isfile(cache_file):
+            if Path(cache_file).is_file():
                 print(f'Using cached {cache_file}')
                 return load_from_json(cache_file)
             else:
@@ -47,3 +49,15 @@ def hash_files(*paths, hash_length=8):
                 digest_obj.update(view[:size])
 
     return digest_obj.hexdigest()[:hash_length]
+
+
+def is_text_plain(file_path):
+    return magic.from_file(file_path, mime=True) == 'text/plain'
+
+
+def is_audio(file_path):
+    return magic.from_file(file_path, mime=True).split('/')[0] == 'audio'
+
+
+def get_audio_files(dir_path):
+    return sorted([p for p in Path(dir_path).iterdir() if p.is_file() and is_audio(p)])

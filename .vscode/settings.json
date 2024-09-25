@@ -6,5 +6,9 @@
       "source.organizeImports": "explicit"
     },
     "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "files.exclude": {
+    ".mypy_cache": true,
+    "**/__pycache__": true
   }
 }
