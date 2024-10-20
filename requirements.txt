@@ -130,6 +130,8 @@ packaging==24.1
     #   transformers
 pillow==10.4.0
     # via torchvision
+python-magic==0.4.27
+    # via audiobooksyncer (pyproject.toml)
 pyyaml==6.0.2
     # via
     #   huggingface-hub
