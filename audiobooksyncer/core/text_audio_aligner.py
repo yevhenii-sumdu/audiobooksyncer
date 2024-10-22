@@ -7,6 +7,7 @@ from aeneas.task import Task
 from aeneas.textfile import TextFile, TextFragment
 from tqdm import tqdm
 
+from . import config
 from .utils import get_audio_duration
 
 
@@ -41,7 +42,7 @@ def _process_chapter(args):
 
     task = _create_task(audio_file, chapter, lang)
     rconf = RuntimeConfiguration()
-    rconf[RuntimeConfiguration.DTW_MARGIN] = 120
+    rconf[RuntimeConfiguration.DTW_MARGIN] = config.aeneas_dtw_margin
     ExecuteTask(task, rconf=rconf).execute()
 
     intervals = [
@@ -62,7 +63,7 @@ def align_text_with_audio(text_fragments, split_indexes, audio_files, lang):
     if len(chapters) != len(audio_files):
         raise Exception('Chapters != audio files')
 
-    with mp.Pool() as pool:
+    with mp.Pool(config.aeneas_processes) as pool:
         processing_results = pool.imap_unordered(
             _process_chapter,
             [

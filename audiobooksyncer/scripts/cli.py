@@ -2,6 +2,7 @@ import warnings
 
 import click
 
+from ..core import config
 from ..core.chapter_locator import locate_chapters
 from ..core.output_generator import get_sync_map
 from ..core.text_audio_aligner import align_text_with_audio
@@ -23,8 +24,15 @@ def _ask_to_continue(skip_confirmation):
 @click.argument('src_path', type=click.Path(exists=True, dir_okay=False))
 @click.argument('tgt_path', type=click.Path(exists=True, dir_okay=False))
 @click.argument('audio_dir', type=click.Path(exists=True, file_okay=False))
+@click.option('--aeneas_processes', type=int)
+@click.option('--aeneas_dtw_margin', type=int)
 @click.option('--yes', '-y', is_flag=True)
-def main(src_path, tgt_path, audio_dir, yes):
+def main(src_path, tgt_path, audio_dir, aeneas_processes, aeneas_dtw_margin, yes):
+    if aeneas_processes is not None:
+        config.aeneas_processes = aeneas_processes
+    if aeneas_dtw_margin is not None:
+        config.aeneas_dtw_margin = aeneas_dtw_margin
+
     audio_files = get_audio_files(audio_dir)
 
     if len(audio_files) == 0:
