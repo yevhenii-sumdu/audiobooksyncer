@@ -15,7 +15,9 @@ chardet==3.0.4
 charset-normalizer==3.3.2
     # via requests
 click==8.1.7
-    # via nltk
+    # via
+    #   audiobooksyncer (pyproject.toml)
+    #   nltk
 faiss-gpu==1.7.2
     # via bertalign
 ffmpeg-python==0.2.0

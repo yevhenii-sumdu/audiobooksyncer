@@ -9,18 +9,14 @@ dependencies = [
     "ffmpeg-python >= 0.2.0, < 1",
     "thefuzz >= 0.22.1, < 1",
     "python-magic >= 0.4.27, < 1",
+    "click >= 8, < 9",
     "aeneas @ git+https://github.com/atlantis-11/aeneas.git",
     "bertalign @ git+https://github.com/atlantis-11/bertalign.git",
     "openai-whisper @ git+https://github.com/openai/whisper.git@v20231117"
 ]
 
-[project.optional-dependencies]
-cli = [
-  "click"
-]
-
 [project.scripts]
-audiobooksyncer-cli = "audiobooksyncer.scripts.cli:main"
+audiobooksyncer = "audiobooksyncer.scripts.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["audiobooksyncer*"]
