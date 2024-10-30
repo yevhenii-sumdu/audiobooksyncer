@@ -1,6 +1,6 @@
 # audiobooksyncer
 
-An application to synchronize an audiobook with text and it's translation.
+An application to synchronize an audiobook with text and its translation.
 
 The purpose of the app is to simplify the experience of listening to audiobooks in a foreign language, so you can quickly look up what's being said and check the translation if needed.
 
@@ -23,7 +23,7 @@ These are mostly needed by aeneas, for troubleshooting check it's [dependencies]
 
 # Usage
 
-If you install the app, you can use `audiobooksyncer-cli` script. Otherwise, you can run the module directly with `python -m audiobooksyncer`.
+If you install the app, you can use `audiobooksyncer` script. Otherwise, you can run the package directly with `python -m audiobooksyncer`.
 
 As an input provide book's text, translation (plain text files) and a directory which contains audiobook's files.
 
@@ -41,7 +41,7 @@ Results will be stored in a directory created in CWD, the directory's name is un
 
 The sync map file contains json array with each element containing part of the text, part of the translation and time interval in ms.
 
-```
+```json
 [
   {
     "src": "Der Hobbit",
