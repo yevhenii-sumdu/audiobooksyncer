@@ -4,7 +4,7 @@ aeneas @ git+https://github.com/atlantis-11/aeneas.git@0a5bb52375982ba6675798e07
     # via audiobooksyncer (pyproject.toml)
 beautifulsoup4==4.12.3
     # via aeneas
-bertalign @ git+https://github.com/atlantis-11/bertalign.git@743293a5a774fc30ae5fdc6d5505e5ace21e941a
+bertalign @ git+https://github.com/atlantis-11/bertalign.git@3469340bf5bd255f5e1f063287078eeb7ee4da0d
     # via audiobooksyncer (pyproject.toml)
 certifi==2024.8.30
     # via
