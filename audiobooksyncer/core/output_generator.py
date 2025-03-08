@@ -1,4 +1,4 @@
-def get_sync_map(aligned_texts, aligned_audio):
+def get_sync_map(aligned_texts: list[dict], aligned_audio: list[dict]):
     return [
         {
             'src': texts_fr['src'],

@@ -7,13 +7,14 @@ from ..core.chapter_locator import locate_chapters
 from ..core.output_generator import get_sync_map
 from ..core.text_audio_aligner import align_text_with_audio
 from ..core.texts_aligner import align_texts
+from ..core.utils import PathLikeType
 from ..pathstore import PathStore
 from ..utils import cache, get_audio_files, hash_files, is_text_plain, save_to_json
 
 warnings.filterwarnings('ignore')
 
 
-def _ask_to_continue(skip_confirmation):
+def _ask_to_continue(skip_confirmation: bool):
     if skip_confirmation:
         return
     if not click.confirm('Done. Continue?', default=True):
@@ -27,7 +28,14 @@ def _ask_to_continue(skip_confirmation):
 @click.option('--aeneas_processes', type=int)
 @click.option('--aeneas_dtw_margin', type=int)
 @click.option('--yes', '-y', is_flag=True)
-def main(src_path, tgt_path, audio_dir, aeneas_processes, aeneas_dtw_margin, yes):
+def main(
+    src_path: PathLikeType,
+    tgt_path: PathLikeType,
+    audio_dir: PathLikeType,
+    aeneas_processes: int,
+    aeneas_dtw_margin: int,
+    yes: bool,
+):
     if aeneas_processes is not None:
         config.aeneas_processes = aeneas_processes
     if aeneas_dtw_margin is not None:

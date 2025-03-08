@@ -2,7 +2,7 @@ from pathlib import Path
 
 
 class PathStore:
-    def __init__(self, hash):
+    def __init__(self, hash: str):
         self.results_dir = Path(f'syncer_{hash}')
         self.aligned_texts = self.results_dir / 'aligned_texts.json'
         self.chapter_locations = self.results_dir / 'chapter_locations.json'

@@ -1,11 +1,14 @@
 import functools
 import multiprocessing as mp
+import os
 
 import ffmpeg
 
+PathLikeType = str | os.PathLike
+
 
 @functools.cache
-def get_audio_duration(audio_path):
+def get_audio_duration(audio_path: PathLikeType):
     return float(ffmpeg.probe(audio_path)['format']['duration'])
 
 

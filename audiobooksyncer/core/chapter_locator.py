@@ -1,15 +1,17 @@
 import re
 from itertools import accumulate
 from tempfile import NamedTemporaryFile
+from typing import Optional
 
 import ffmpeg
 from thefuzz import fuzz
 from tqdm import tqdm
+from whisper import Whisper
 
-from .utils import get_audio_duration, run_in_subprocess
+from .utils import PathLikeType, get_audio_duration, run_in_subprocess
 
 
-def _trim_audiofile(input_path, output_path, duration):
+def _trim_audiofile(input_path: PathLikeType, output_path: PathLikeType, duration: int):
     (
         ffmpeg.input(input_path)
         .output(output_path, to=duration, f='wav')
@@ -17,7 +19,9 @@ def _trim_audiofile(input_path, output_path, duration):
     )
 
 
-def _transcribe_beginning(audio_path, model, lang):
+def _transcribe_beginning(
+    audio_path: PathLikeType, model: Whisper, lang: Optional[str]
+) -> str:
     duration = 60
 
     with NamedTemporaryFile() as temp_file:
@@ -28,7 +32,7 @@ def _transcribe_beginning(audio_path, model, lang):
     return result['text']
 
 
-def _get_anchor_fragment_indexes(text_fragments, audio_files):
+def _get_anchor_fragment_indexes(text_fragments: list[str], audio_files: list[str]):
     audio_durations = [get_audio_duration(f) for f in audio_files]
 
     total_audio_duration = sum(audio_durations)
@@ -60,12 +64,14 @@ def _get_anchor_fragment_indexes(text_fragments, audio_files):
     return anchor_fragment_indexes
 
 
-def _clean_string(string):
+def _clean_string(string: str):
     string = re.sub(r'\W', '', string)
     return string.lower()
 
 
-def _find_start_fragment(text_fragments, anchor_fragment_index, transcription):
+def _find_start_fragment(
+    text_fragments: list[str], anchor_fragment_index: int, transcription: str
+):
     # margin is set to 3% but no less than 20 fragments
     # this would allow for almost an hour of deviation
     # on a 30-hour book
@@ -101,7 +107,9 @@ def _find_start_fragment(text_fragments, anchor_fragment_index, transcription):
 
 
 @run_in_subprocess
-def locate_chapters(text_fragments, audio_files, lang=None):
+def locate_chapters(
+    text_fragments: list[str], audio_files: list[str], lang: Optional[str] = None
+):
     import whisper
 
     model_name = 'base'

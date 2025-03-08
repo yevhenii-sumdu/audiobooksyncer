@@ -8,10 +8,11 @@ from aeneas.textfile import TextFile, TextFragment
 from tqdm import tqdm
 
 from . import config
+from .utils import PathLikeType
 from .utils import get_audio_duration
 
 
-def _split_into_chapters(text_fragments, split_indexes):
+def _split_into_chapters(text_fragments: list[str], split_indexes: list[int]):
     split_indexes = [0] + split_indexes + [len(text_fragments)]
 
     return [
@@ -20,7 +21,7 @@ def _split_into_chapters(text_fragments, split_indexes):
     ]
 
 
-def _create_task(audio_file, chapter, lang):
+def _create_task(audio_file: PathLikeType, chapter: list[str], lang: str):
     task = Task(config_string=f'task_language={lang}')
     task.audio_file_path_absolute = audio_file
 
@@ -57,7 +58,12 @@ def _process_chapter(args):
     return idx, intervals
 
 
-def align_text_with_audio(text_fragments, split_indexes, audio_files, lang):
+def align_text_with_audio(
+    text_fragments: list[str],
+    split_indexes: list[int],
+    audio_files: list[str],
+    lang: str,
+) -> list[dict]:
     chapters = _split_into_chapters(text_fragments, split_indexes)
 
     if len(chapters) != len(audio_files):

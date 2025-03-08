@@ -6,20 +6,22 @@ from typing import Callable, TypeVar
 
 import magic
 
+from .core.utils import PathLikeType
+
 C = TypeVar('C', bound=Callable)
 
 
-def save_to_json(data, file_path):
+def save_to_json(data, file_path: PathLikeType):
     with open(file_path, 'w') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def load_from_json(file_path):
+def load_from_json(file_path: PathLikeType):
     with open(file_path, 'r') as f:
         return json.load(f)
 
 
-def cache(cache_file):
+def cache(cache_file: PathLikeType):
     def decorator(func: C) -> C:
         @wraps(func)
         def wrapper(*args, **kwargs):
@@ -36,7 +38,7 @@ def cache(cache_file):
     return decorator
 
 
-def hash_files(*paths, hash_length=8):
+def hash_files(*paths: PathLikeType, hash_length=8):
     digest_obj = hashlib.md5()
     buffer_size = 2**18
 
@@ -51,13 +53,13 @@ def hash_files(*paths, hash_length=8):
     return digest_obj.hexdigest()[:hash_length]
 
 
-def is_text_plain(file_path):
+def is_text_plain(file_path: PathLikeType):
     return magic.from_file(file_path, mime=True) == 'text/plain'
 
 
-def is_audio(file_path):
+def is_audio(file_path: PathLikeType):
     return magic.from_file(file_path, mime=True).split('/')[0] == 'audio'
 
 
-def get_audio_files(dir_path):
+def get_audio_files(dir_path: PathLikeType):
     return sorted([p for p in Path(dir_path).iterdir() if p.is_file() and is_audio(p)])

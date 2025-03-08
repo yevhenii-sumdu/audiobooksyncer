@@ -1,8 +1,8 @@
-from .utils import run_in_subprocess
+from .utils import PathLikeType, run_in_subprocess
 
 
 @run_in_subprocess
-def align_texts(src_path, tgt_path):
+def align_texts(src_path: PathLikeType, tgt_path: PathLikeType):
     from bertalign import Bertalign, load_model
 
     with open(src_path, 'r') as f:
