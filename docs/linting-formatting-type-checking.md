@@ -47,3 +47,7 @@ pre-commit install  # set up hooks
 # Static type checking
 
 I use MyPy for static type checking. To run the check use `mypy .`.
+
+# GitHub Actions
+
+To automatically run all the checks I've added a GitHub Actions workflow.
