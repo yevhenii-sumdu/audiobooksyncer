@@ -32,3 +32,18 @@ There is also a VS Code extension called `Ruff`, you can configure it to format,
   }
 }
 ```
+
+# Git hooks
+
+There is a pre-commit hook for ruff configured in `.pre-commit-config.yaml`. This hook checks for linting and formatting issues.
+
+To use hooks:
+
+```bash
+pip install pre-commit  # install
+pre-commit install  # set up hooks
+```
+
+# Static type checking
+
+I use MyPy for static type checking. To run the check use `mypy .`.
