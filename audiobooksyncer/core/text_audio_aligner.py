@@ -8,8 +8,7 @@ from aeneas.textfile import TextFile, TextFragment
 from tqdm import tqdm
 
 from . import config
-from .utils import PathLikeType
-from .utils import get_audio_duration
+from .utils import PathLikeType, get_audio_duration
 
 
 def _split_into_chapters(text_fragments: list[str], split_indexes: list[int]):
@@ -64,6 +63,15 @@ def align_text_with_audio(
     audio_files: list[str],
     lang: str,
 ) -> list[dict]:
+    """
+    Align text fragments with corresponding audio files.
+
+    :param text_fragments: List of text fragments.
+    :param split_indexes: List of indexes indicating split points in fragments list.
+    :param audio_files: List of associated audio file paths.
+    :param lang: Language of the text and audio.
+    :return: Alignment result.
+    """
     chapters = _split_into_chapters(text_fragments, split_indexes)
 
     if len(chapters) != len(audio_files):

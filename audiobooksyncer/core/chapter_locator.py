@@ -110,6 +110,15 @@ def _find_start_fragment(
 def locate_chapters(
     text_fragments: list[str], audio_files: list[str], lang: Optional[str] = None
 ):
+    """
+    Locate where each audio file (chapter) starts in a list of text fragments.
+
+    :param text_fragments: List of text fragments.
+    :param audio_files: List of audio file paths.
+    :param lang: Language.
+    :return: List of fragment indexes corresponding to chapter locations.
+    """
+
     import whisper
 
     model_name = 'base'

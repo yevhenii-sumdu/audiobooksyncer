@@ -2,6 +2,12 @@ from pathlib import Path
 
 
 class PathStore:
+    """
+    A class to store paths of result files.
+
+    :param hash: A unique identifier for the result directory.
+    """
+
     def __init__(self, hash: str):
         self.results_dir = Path(f'syncer_{hash}')
         self.aligned_texts = self.results_dir / 'aligned_texts.json'

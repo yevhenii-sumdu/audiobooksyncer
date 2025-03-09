@@ -7,7 +7,6 @@ from ..core.chapter_locator import locate_chapters
 from ..core.output_generator import get_sync_map
 from ..core.text_audio_aligner import align_text_with_audio
 from ..core.texts_aligner import align_texts
-from ..core.utils import PathLikeType
 from ..pathstore import PathStore
 from ..utils import cache, get_audio_files, hash_files, is_text_plain, save_to_json
 
@@ -28,14 +27,18 @@ def _ask_to_continue(skip_confirmation: bool):
 @click.option('--aeneas_processes', type=int)
 @click.option('--aeneas_dtw_margin', type=int)
 @click.option('--yes', '-y', is_flag=True)
-def main(
-    src_path: PathLikeType,
-    tgt_path: PathLikeType,
-    audio_dir: PathLikeType,
-    aeneas_processes: int,
-    aeneas_dtw_margin: int,
-    yes: bool,
-):
+def main(src_path, tgt_path, audio_dir, aeneas_processes, aeneas_dtw_margin, yes):
+    """
+    Entry for the CLI.
+
+    :param src_path: Path to the source text file.
+    :param tgt_path: Path to the translation text file.
+    :param audio_dir: Path to the directory containing audio files.
+    :param aeneas_processes: Number of processes for audio alignment.
+    :param aeneas_dtw_margin: DWT margin for audio alignment.
+    :param yes: Flag to automatically confirm prompts.
+    """
+
     if aeneas_processes is not None:
         config.aeneas_processes = aeneas_processes
     if aeneas_dtw_margin is not None:

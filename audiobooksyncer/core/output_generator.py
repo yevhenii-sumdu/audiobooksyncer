@@ -1,4 +1,11 @@
 def get_sync_map(aligned_texts: list[dict], aligned_audio: list[dict]):
+    """
+    Generate a synchronization map.
+
+    :param aligned_texts: Text alignment result.
+    :param aligned_audio: Audio alignment result.
+    :return: A sync map.
+    """
     return [
         {
             'src': texts_fr['src'],
