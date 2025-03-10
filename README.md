@@ -2,7 +2,7 @@
 
 An application to synchronize an audiobook with text and its translation.
 
-The purpose of the app is to simplify the experience of listening to audiobooks in a foreign language, so you can quickly look up what's being said and check the translation if needed.
+The purpose of this app is to simplify the experience of listening to audiobooks in a foreign language, so you can quickly look up what's being said and check the translation if needed.
 
 Under the hood, the following packages are used:
 - [aeneas](https://github.com/readbeyond/aeneas) - to sync text with audio
@@ -11,11 +11,10 @@ Under the hood, the following packages are used:
 
 # Requirements
 
-The app can only be used on Linux and you need a GPU with CUDA support. Tested with Python 3.10.
+This app can only be used on Linux and you need a GPU with CUDA support (though you can run it on CPU). Tested with Python 3.10.
 
 You also need the following packages installed:
 - gcc/clang
-- espeak
 - libespeak-dev
 - ffmpeg
 
