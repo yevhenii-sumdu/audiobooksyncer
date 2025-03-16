@@ -1,0 +1,94 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Yevhenii
+# This file is distributed under the same license as the audiobooksyncer
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: audiobooksyncer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-16 19:02+0200\n"
+"PO-Revision-Date: 2025-03-16 19:32+0200\n"
+"Last-Translator: \n"
+"Language-Team: uk <LL@li.org>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Generated-By: Babel 2.17.0\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#: ../../autoapi/audiobooksyncer/core/utils/index.rst:2
+msgid "audiobooksyncer.core.utils"
+msgstr "audiobooksyncer.core.utils"
+
+#: ../../autoapi/audiobooksyncer/core/utils/index.rst:8
+msgid "Attributes"
+msgstr "Атрибути"
+
+#: ../../autoapi/audiobooksyncer/core/utils/index.rst:14:<autosummary>:1
+msgid ":py:obj:`PathLikeType <audiobooksyncer.core.utils.PathLikeType>`\\"
+msgstr ""
+":py:obj:`PathLikeType <audiobooksyncer.core.utils.PathLikeType>`\\"
+
+#: ../../autoapi/audiobooksyncer/core/utils/index.rst:16
+msgid "Functions"
+msgstr "Функції"
+
+#: ../../autoapi/audiobooksyncer/core/utils/index.rst:23:<autosummary>:1
+msgid ""
+":py:obj:`get_audio_duration <audiobooksyncer.core.utils."
+"get_audio_duration>`\\ \\(audio\\_path\\)"
+msgstr ""
+":py:obj:`get_audio_duration <audiobooksyncer.core.utils."
+"get_audio_duration>`\\ \\(audio\\_path\\)"
+
+#: ../../autoapi/audiobooksyncer/core/utils/index.rst:31
+#: ../../autoapi/audiobooksyncer/core/utils/index.rst:23:<autosummary>:1
+msgid "Get the duration of an audio file."
+msgstr "Знайти тривалість аудіофайла."
+
+#: ../../autoapi/audiobooksyncer/core/utils/index.rst:23:<autosummary>:1
+msgid ""
+":py:obj:`run_in_subprocess <audiobooksyncer.core.utils."
+"run_in_subprocess>`\\ \\(func\\)"
+msgstr ""
+":py:obj:`run_in_subprocess <audiobooksyncer.core.utils."
+"run_in_subprocess>`\\ \\(func\\)"
+
+#: ../../autoapi/audiobooksyncer/core/utils/index.rst:39
+#: ../../autoapi/audiobooksyncer/core/utils/index.rst:23:<autosummary>:1
+msgid "Decorator to execute a function in a separate subprocess."
+msgstr "Декоратор для виконання функції в окремому процесі."
+
+#: ../../autoapi/audiobooksyncer/core/utils/index.rst:25
+msgid "Module Contents"
+msgstr "Зміст модуля"
+
+#: ../../autoapi/audiobooksyncer/core/utils/index.rst
+msgid "Parameters"
+msgstr "Пареметри"
+
+#: ../../autoapi/audiobooksyncer/core/utils/index.rst:33
+msgid "Path to the audio file."
+msgstr "Шлях до аудіофайла."
+
+#: ../../autoapi/audiobooksyncer/core/utils/index.rst
+msgid "Returns"
+msgstr "Повертає"
+
+#: ../../autoapi/audiobooksyncer/core/utils/index.rst:34
+msgid "Duration of the audio file in seconds."
+msgstr "Тривалість файлу в секундах."
+
+#: ../../autoapi/audiobooksyncer/core/utils/index.rst:41
+msgid "The function to be executed."
+msgstr "Функція, що буде виконуватися."
+
+#: ../../autoapi/audiobooksyncer/core/utils/index.rst:42
+msgid "Wrapped function that runs in a subprocess."
+msgstr "Обгорнута функція, яка виконується в підпроцесі."

@@ -1,0 +1,74 @@
+# Translations template for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-03-16 19:02+0200\n"
+"PO-Revision-Date: 2025-03-16 19:40+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#: ../../autoapi/audiobooksyncer/scripts/cli/index.rst:2
+msgid "audiobooksyncer.scripts.cli"
+msgstr "audiobooksyncer.scripts.cli"
+
+#: ../../autoapi/audiobooksyncer/scripts/cli/index.rst:8
+msgid "Functions"
+msgstr "Функції"
+
+#: ../../autoapi/audiobooksyncer/scripts/cli/index.rst:14:<autosummary>:1
+msgid ""
+":py:obj:`main <audiobooksyncer.scripts.cli.main>`\\ \\(src\\_path\\, "
+"tgt\\_path\\, audio\\_dir\\, aeneas\\_processes\\, ...\\)"
+msgstr ""
+":py:obj:`main <audiobooksyncer.scripts.cli.main>`\\ \\(src\\_path\\, "
+"tgt\\_path\\, audio\\_dir\\, aeneas\\_processes\\, ...\\)"
+
+#: ../../autoapi/audiobooksyncer/scripts/cli/index.rst:20
+#: ../../autoapi/audiobooksyncer/scripts/cli/index.rst:14:<autosummary>:1
+msgid "Entry for the CLI."
+msgstr "Вхід до CLI."
+
+#: ../../autoapi/audiobooksyncer/scripts/cli/index.rst:16
+msgid "Module Contents"
+msgstr "Зміст модуля"
+
+#: ../../autoapi/audiobooksyncer/scripts/cli/index.rst
+msgid "Parameters"
+msgstr "Параметри"
+
+#: ../../autoapi/audiobooksyncer/scripts/cli/index.rst:22
+msgid "Path to the source text file."
+msgstr "Шлях до текстового файлу."
+
+#: ../../autoapi/audiobooksyncer/scripts/cli/index.rst:23
+msgid "Path to the translation text file."
+msgstr "Шлях до текстового файлу перекладу."
+
+#: ../../autoapi/audiobooksyncer/scripts/cli/index.rst:24
+msgid "Path to the directory containing audio files."
+msgstr "Шлях до каталогу з аудіофайлами."
+
+#: ../../autoapi/audiobooksyncer/scripts/cli/index.rst:25
+msgid "Number of processes for audio alignment."
+msgstr "Кількість процесів для вирівнювання аудіо."
+
+#: ../../autoapi/audiobooksyncer/scripts/cli/index.rst:26
+msgid "DWT margin for audio alignment."
+msgstr "DWT відступ для вирівнювання аудіо."
+
+#: ../../autoapi/audiobooksyncer/scripts/cli/index.rst:27
+msgid "Flag to automatically confirm prompts."
+msgstr ""
+"Параметр для автоматичного підтвердження питань щодо продовження."

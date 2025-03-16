@@ -8,3 +8,5 @@ The purpose of the app is to simplify the experience of listening to audiobooks 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+
+`Українська <uk/index.html>`_

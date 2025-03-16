@@ -1,0 +1,76 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Yevhenii
+# This file is distributed under the same license as the audiobooksyncer
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: audiobooksyncer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-16 19:02+0200\n"
+"PO-Revision-Date: 2025-03-16 19:41+0200\n"
+"Last-Translator: \n"
+"Language-Team: uk <LL@li.org>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 "
+"&& (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Generated-By: Babel 2.17.0\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#: ../../autoapi/audiobooksyncer/core/chapter_locator/index.rst:2
+msgid "audiobooksyncer.core.chapter_locator"
+msgstr "audiobooksyncer.core.chapter_locator"
+
+#: ../../autoapi/audiobooksyncer/core/chapter_locator/index.rst:8
+msgid "Functions"
+msgstr "Функції"
+
+#: ../../autoapi/audiobooksyncer/core/chapter_locator/index.rst:14:<autosummary>:1
+msgid ""
+":py:obj:`locate_chapters <audiobooksyncer.core.chapter_locator."
+"locate_chapters>`\\ \\(text\\_fragments\\, audio\\_files\\[\\, lang\\]\\)"
+msgstr ""
+":py:obj:`locate_chapters <audiobooksyncer.core.chapter_locator."
+"locate_chapters>`\\ \\(text\\_fragments\\, audio\\_files\\[\\, lang\\]\\)"
+
+#: ../../autoapi/audiobooksyncer/core/chapter_locator/index.rst:20
+#: ../../autoapi/audiobooksyncer/core/chapter_locator/index.rst:14:<autosummary>:1
+msgid "Locate where each audio file (chapter) starts in a list of text fragments."
+msgstr ""
+"Визначити, де починається кожен аудіофайл (розділ) у списку текстових "
+"фрагментів."
+
+#: ../../autoapi/audiobooksyncer/core/chapter_locator/index.rst:16
+msgid "Module Contents"
+msgstr "Зміст модуля"
+
+#: ../../autoapi/audiobooksyncer/core/chapter_locator/index.rst
+msgid "Parameters"
+msgstr "Параметри"
+
+#: ../../autoapi/audiobooksyncer/core/chapter_locator/index.rst:22
+msgid "List of text fragments."
+msgstr "Список текстових фрагментів."
+
+#: ../../autoapi/audiobooksyncer/core/chapter_locator/index.rst:23
+msgid "List of audio file paths."
+msgstr "Список аудіофайлів."
+
+#: ../../autoapi/audiobooksyncer/core/chapter_locator/index.rst:24
+msgid "Language."
+msgstr "Мова."
+
+#: ../../autoapi/audiobooksyncer/core/chapter_locator/index.rst
+msgid "Returns"
+msgstr "Повертає"
+
+#: ../../autoapi/audiobooksyncer/core/chapter_locator/index.rst:25
+msgid "List of fragment indexes corresponding to chapter locations."
+msgstr ""
+"Список індексів елементів з списку фрагменті, що позначають де починаються "
+"аудіофайли."
