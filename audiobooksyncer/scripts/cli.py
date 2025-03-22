@@ -38,7 +38,6 @@ def main(src_path, tgt_path, audio_dir, aeneas_processes, aeneas_dtw_margin, yes
     :param aeneas_dtw_margin: DWT margin for audio alignment.
     :param yes: Flag to automatically confirm prompts.
     """
-
     if aeneas_processes is not None:
         config.aeneas_processes = aeneas_processes
     if aeneas_dtw_margin is not None:

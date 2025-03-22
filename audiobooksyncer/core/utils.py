@@ -20,7 +20,7 @@ def get_audio_duration(audio_path: PathLikeType):
 
 def run_in_subprocess(func):
     """
-    Decorator to execute a function in a separate subprocess.
+    Decorate a function to execute it in a separate subprocess.
 
     :param func: The function to be executed.
     :return: Wrapped function that runs in a subprocess.

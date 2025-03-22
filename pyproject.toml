@@ -26,3 +26,10 @@ quote-style = "single"
 
 [tool.mypy]
 ignore_missing_imports = true
+
+[tool.ruff.lint]
+extend-select = ["D"]
+ignore = ["D1"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"

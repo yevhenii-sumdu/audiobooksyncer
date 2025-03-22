@@ -1,6 +1,4 @@
-"""
-Configs which can be set using CLI options.
-"""
+"""Configs which can be set using CLI options."""
 
 import os
 

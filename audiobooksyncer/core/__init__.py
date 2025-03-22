@@ -1,3 +1,1 @@
-"""
-A subpackage which provides core alignment functionality.
-"""
+"""A subpackage which provides core alignment functionality."""

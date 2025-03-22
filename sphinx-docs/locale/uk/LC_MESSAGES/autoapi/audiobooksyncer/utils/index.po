@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: audiobooksyncer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-16 19:02+0200\n"
-"PO-Revision-Date: 2025-03-16 19:38+0200\n"
+"POT-Creation-Date: 2025-03-22 13:06+0200\n"
+"PO-Revision-Date: 2025-03-22 13:22+0200\n"
 "Last-Translator: \n"
 "Language-Team: uk <LL@li.org>\n"
 "Language: uk\n"
@@ -36,8 +36,7 @@ msgstr "Функції"
 
 #: ../../autoapi/audiobooksyncer/utils/index.rst:25:<autosummary>:1
 msgid ":py:obj:`save_to_json <audiobooksyncer.utils.save_to_json>`\\ \\(→ None\\)"
-msgstr ""
-":py:obj:`save_to_json <audiobooksyncer.utils.save_to_json>`\\ \\(→ None\\)"
+msgstr ":py:obj:`save_to_json <audiobooksyncer.utils.save_to_json>`\\ \\(→ None\\)"
 
 #: ../../autoapi/audiobooksyncer/utils/index.rst:31
 #: ../../autoapi/audiobooksyncer/utils/index.rst:25:<autosummary>:1
@@ -65,8 +64,8 @@ msgstr ""
 
 #: ../../autoapi/audiobooksyncer/utils/index.rst:47
 #: ../../autoapi/audiobooksyncer/utils/index.rst:25:<autosummary>:1
-msgid "Decorator to cache function output to a JSON file."
-msgstr "Декоратор для кешування виводу функції в JSON-файл."
+msgid "Decorate a function to cache its output to a JSON file."
+msgstr "Обгорнути функцію для збереження результату до JSON-файлу."
 
 #: ../../autoapi/audiobooksyncer/utils/index.rst:25:<autosummary>:1
 msgid ":py:obj:`hash_files <audiobooksyncer.utils.hash_files>`\\ \\(→ str\\)"
@@ -86,8 +85,7 @@ msgstr ""
 #: ../../autoapi/audiobooksyncer/utils/index.rst:64
 #: ../../autoapi/audiobooksyncer/utils/index.rst:25:<autosummary>:1
 msgid "Check if a file is a plain text file based on its MIME type."
-msgstr ""
-"Перевірити, чи є файл звичайним текстовим файлом на основі його MIME-типу."
+msgstr "Перевірити, чи є файл звичайним текстовим файлом на основі його MIME-типу."
 
 #: ../../autoapi/audiobooksyncer/utils/index.rst:25:<autosummary>:1
 msgid ":py:obj:`is_audio <audiobooksyncer.utils.is_audio>`\\ \\(→ bool\\)"

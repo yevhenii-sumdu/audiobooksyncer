@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: audiobooksyncer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-16 19:02+0200\n"
-"PO-Revision-Date: 2025-03-16 19:23+0200\n"
+"PO-Revision-Date: 2025-03-22 13:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: uk <LL@li.org>\n"
 "Language: uk\n"
@@ -41,7 +41,7 @@ msgstr ""
 #: ../../autoapi/audiobooksyncer/core/texts_aligner/index.rst:20
 #: ../../autoapi/audiobooksyncer/core/texts_aligner/index.rst:14:<autosummary>:1
 msgid "Align text and translation using Bertalign."
-msgstr "Синхронізація тексту і перекладу за допомогою Bertalign."
+msgstr "Синхронізувати текст і переклад за допомогою Bertalign."
 
 #: ../../autoapi/audiobooksyncer/core/texts_aligner/index.rst:16
 msgid "Module Contents"

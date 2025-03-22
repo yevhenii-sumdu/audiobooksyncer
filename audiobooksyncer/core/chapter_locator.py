@@ -118,7 +118,6 @@ def locate_chapters(
     :param lang: Language.
     :return: List of fragment indexes corresponding to chapter locations.
     """
-
     import whisper
 
     model_name = 'base'

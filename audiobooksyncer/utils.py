@@ -1,6 +1,4 @@
-"""
-Various utils for working with files.
-"""
+"""Various utils for working with files."""
 
 import hashlib
 import json
@@ -39,7 +37,7 @@ def load_from_json(file_path: PathLikeType) -> Any:
 
 def cache(cache_file: PathLikeType) -> Callable[[_C], _C]:
     """
-    Decorator to cache function output to a JSON file.
+    Decorate a function to cache its output to a JSON file.
 
     :param cache_file: Path to the cache file.
     :return: Decorated function with caching.

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: audiobooksyncer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-16 19:02+0200\n"
-"PO-Revision-Date: 2025-03-16 19:25+0200\n"
+"PO-Revision-Date: 2025-03-22 13:11+0200\n"
 "Last-Translator: \n"
 "Language-Team: uk <LL@li.org>\n"
 "Language: uk\n"
@@ -41,7 +41,7 @@ msgstr ""
 #: ../../autoapi/audiobooksyncer/core/text_audio_aligner/index.rst:20
 #: ../../autoapi/audiobooksyncer/core/text_audio_aligner/index.rst:14:<autosummary>:1
 msgid "Align text fragments with corresponding audio files."
-msgstr "Синхронізація тестових фрагментів та відповідних аудіо файлів."
+msgstr "Синхронізувати текстові фрагменти та відповідні аудіо файли."
 
 #: ../../autoapi/audiobooksyncer/core/text_audio_aligner/index.rst:16
 msgid "Module Contents"
