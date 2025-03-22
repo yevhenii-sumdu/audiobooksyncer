@@ -56,3 +56,28 @@ The sync map file contains json array with each element containing part of the t
 This can be turned into subtitles files with [srt](https://pypi.org/project/srt/).
 
 Or you can use [AudiobookSyncerReader](https://github.com/atlantis-11/AudiobookSyncerReader) app for Android.
+
+# Documentation Style Guide  
+
+This project follows the **reStructuredText (reST) format** for documentation to ensure consistency and readability across all modules. When writing docstrings, please adhere to the **PEP 257** guidelines and structure them clearly.  
+
+## Example
+
+**Function & Method Docstrings**  
+- Include a brief description, parameters, return values, and any raised exceptions.  
+- Use the following format:  
+
+```python
+def example_function(param1: int, param2: str) -> bool:
+    """
+    Brief summary of the function.
+
+    :param param1: Description of the first parameter.
+    :type param1: int
+    :param param2: Description of the second parameter.
+    :type param2: str
+    :return: Description of what the function returns.
+    :rtype: bool
+    :raises ValueError: Explanation of when this exception is raised.
+    """
+```
