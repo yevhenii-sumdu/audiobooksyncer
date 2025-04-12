@@ -9,16 +9,51 @@ Under the hood, the following packages are used:
 - [bertalign](https://github.com/bfsujason/bertalign) - to sync text with translation
 - [whisper](https://github.com/openai/whisper) - to find where the audio files begin in text.
 
-# Requirements
+# Getting Started
 
-This app can only be used on Linux and you need a GPU with CUDA support (though you can run it on CPU). Tested with Python 3.10.
+First clone the repo using:
 
-You also need the following packages installed:
+```bash
+git clone https://github.com/yevhenii-sumdu/audiobooksyncer
+```
+
+This app can only be used on Linux and you need a GPU with CUDA support (though you can run it on CPU, but it will be slower). Tested with Python 3.10.
+
+You need the following packages installed:
 - gcc/clang
 - libespeak-dev
 - ffmpeg
 
+On Debian-based systems this can be done using:
+
+```bash
+apt install gcc libespeak-dev ffmpeg
+```
+
 These are mostly needed by aeneas, for troubleshooting check it's [dependencies](https://github.com/readbeyond/aeneas/blob/master/install_dependencies.sh).
+
+Then create a python virtual environment:
+
+```bash
+python3 -m venv .venv
+. .venv/bin/activate
+```
+
+Then install python dependencies using pinned versions:
+
+```bash
+pip install -r requirements.txt
+```
+
+You can also install the project itself:
+
+```bash
+pip install .
+# or
+pip install -e .
+```
+
+This will add `audiobooksyncer` script to your environment.
 
 # Usage
 
