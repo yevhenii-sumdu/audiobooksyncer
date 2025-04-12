@@ -69,6 +69,22 @@ The shorter the audio files, the better the result, around an hour is fine. You 
 
 Text to audio sync requires quite a bit of RAM. The audio files are processed in parallel, with the number of processes equal to CPU count by default (can be set with `--aeneas_processes`). RAM is mostly used up in the second part of processing of each file, so if you have several big files with the same duration, this peak might add up.
 
+# Docker
+
+You can also run this app in Docker, to build an image use:
+
+```bash
+docker build . -t audiobooksyncer
+```
+
+To run a container use:
+
+```bash
+docker run -it --gpus all -v ./book:/work audiobooksyncer text.txt translation.txt audio/
+```
+
+To use the GPU follow [this](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) guide.
+
 ## Results
 
 Results will be stored in a directory created in CWD, the directory's name is unique for different inputs, each step's result will be stored in a json file and reused on consecutive runs.
