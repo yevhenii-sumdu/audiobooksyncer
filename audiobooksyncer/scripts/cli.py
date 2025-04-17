@@ -1,6 +1,7 @@
 import warnings
 
 import click
+from loguru import logger
 
 from ..core import config
 from ..core.chapter_locator import locate_chapters
@@ -17,6 +18,7 @@ def _ask_to_continue(skip_confirmation: bool):
     if skip_confirmation:
         return
     if not click.confirm('Done. Continue?', default=True):
+        logger.info('Exiting, user chose not to continue')
         exit(0)
 
 
@@ -38,6 +40,10 @@ def main(src_path, tgt_path, audio_dir, aeneas_processes, aeneas_dtw_margin, yes
     :param aeneas_dtw_margin: DWT margin for audio alignment.
     :param yes: Flag to automatically confirm prompts.
     """
+    logger.info(
+        f'Starting app with parameters: {src_path=}, {tgt_path=}, {audio_dir=}, {aeneas_processes=}, {aeneas_dtw_margin=}'
+    )
+
     if aeneas_processes is not None:
         config.aeneas_processes = aeneas_processes
     if aeneas_dtw_margin is not None:
@@ -46,15 +52,21 @@ def main(src_path, tgt_path, audio_dir, aeneas_processes, aeneas_dtw_margin, yes
     audio_files = get_audio_files(audio_dir)
 
     if len(audio_files) == 0:
-        print(f'No audio files in {audio_dir}')
+        msg = f'No audio files in {audio_dir}'
+        print(msg)
+        logger.error(msg)
         exit(1)
 
     if not is_text_plain(src_path):
-        print(f'{src_path} is not plain text')
+        msg = f'{src_path} is not plain text'
+        print(msg)
+        logger.error(msg)
         exit(1)
 
     if not is_text_plain(tgt_path):
-        print(f'{tgt_path} is not plain text')
+        msg = f'{tgt_path} is not plain text'
+        print(msg)
+        logger.error(msg)
         exit(1)
 
     paths = PathStore(hash_files(src_path, tgt_path, *audio_files))
@@ -66,27 +78,39 @@ def main(src_path, tgt_path, audio_dir, aeneas_processes, aeneas_dtw_margin, yes
     def ac():
         _ask_to_continue(yes)
 
-    print(f'Saving results to {paths.results_dir}/')
+    msg = f'Saving results to {paths.results_dir}/'
+    print(msg)
+    logger.info(msg)
     paths.results_dir.mkdir(exist_ok=True)
 
-    print('\nSTEP 1: Aligning text and translation')
+    msg = 'STEP 1: Aligning text and translation'
+    print('\n' + msg)
+    logger.info(msg)
     aligned_texts = c_align_texts(src_path, tgt_path)
     src_fragments = [i['src'] for i in aligned_texts['data']]
     src_lang = aligned_texts['src_lang_code']
 
     ac()
 
-    print('\nSTEP 2: Locating where each audio file starts')
+    msg = 'STEP 2: Locating where each audio file starts'
+    print('\n' + msg)
+    logger.info(msg)
     split_indexes = c_locate_chapters(src_fragments, audio_files, src_lang)
 
     ac()
 
-    print('\nSTEP 3: Aligning text and audio')
+    msg = 'STEP 3: Aligning text and audio'
+    print('\n' + msg)
+    logger.info(msg)
     aligned_audio = c_align_text_with_audio(
         src_fragments, split_indexes, audio_files, src_lang
     )
 
     ac()
 
-    print(f'\nSTEP 4: Saving result to {paths.sync_map}')
+    msg = f'STEP 4: Saving result to {paths.sync_map}'
+    print('\n' + msg)
+    logger.info(msg)
     save_to_json(get_sync_map(aligned_texts['data'], aligned_audio), paths.sync_map)
+
+    logger.info('Successfully processed the files, exiting')

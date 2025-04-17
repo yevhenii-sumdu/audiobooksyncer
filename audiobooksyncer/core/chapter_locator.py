@@ -4,6 +4,7 @@ from tempfile import NamedTemporaryFile
 from typing import Optional
 
 import ffmpeg
+from loguru import logger
 from thefuzz import fuzz
 from tqdm import tqdm
 from whisper import Whisper
@@ -18,6 +19,10 @@ def _trim_audiofile(input_path: PathLikeType, output_path: PathLikeType, duratio
         .run(overwrite_output=True, quiet=True)
     )
 
+    logger.debug(
+        f'Trimmed {input_path}, result saved to {output_path}, duration: {duration}s'
+    )
+
 
 def _transcribe_beginning(
     audio_path: PathLikeType, model: Whisper, lang: Optional[str]
@@ -28,6 +33,8 @@ def _transcribe_beginning(
         _trim_audiofile(audio_path, temp_file.name, duration)
 
         result = model.transcribe(temp_file.name, language=lang)
+
+        logger.debug(f'Transcribed {audio_path}')
 
     return result['text']
 
@@ -123,11 +130,17 @@ def locate_chapters(
     model_name = 'base'
     model = whisper.load_model(model_name)
 
+    logger.debug(f'Loaded whisper {model_name} model')
+
     anchor_fragment_indexes = _get_anchor_fragment_indexes(text_fragments, audio_files)
+
+    logger.debug(f'Located {len(anchor_fragment_indexes)} anchor fragments')
 
     transcriptions = []
     for af in tqdm(audio_files[1:], desc='Audio files'):
         transcriptions.append(_transcribe_beginning(af, model, lang))
+
+    logger.debug(f'Transcribed {len(transcriptions)} audio files')
 
     return [
         _find_start_fragment(text_fragments, *i)

@@ -5,6 +5,7 @@ from aeneas.runtimeconfiguration import RuntimeConfiguration
 from aeneas.syncmap import SyncMapFragment
 from aeneas.task import Task
 from aeneas.textfile import TextFile, TextFragment
+from loguru import logger
 from tqdm import tqdm
 
 from . import config
@@ -43,6 +44,9 @@ def _process_chapter(args):
     task = _create_task(audio_file, chapter, lang)
     rconf = RuntimeConfiguration()
     rconf[RuntimeConfiguration.DTW_MARGIN] = config.aeneas_dtw_margin
+
+    logger.debug(f'Processing chapter #{idx + 1}, audio file: {audio_file}')
+
     ExecuteTask(task, rconf=rconf).execute()
 
     intervals = [
@@ -74,6 +78,8 @@ def align_text_with_audio(
     """
     chapters = _split_into_chapters(text_fragments, split_indexes)
 
+    logger.debug(f'Text split into {len(chapters)} chapters')
+
     if len(chapters) != len(audio_files):
         raise Exception('Chapters != audio files')
 
@@ -89,6 +95,7 @@ def align_text_with_audio(
         chapter_results = []
 
         for pr_res in tqdm(processing_results, total=len(chapters), desc='Chapters'):
+            logger.debug(f'Chapter #{pr_res[0] + 1} processed')
             chapter_results.append(pr_res)
 
         chapter_results.sort(key=lambda x: x[0])

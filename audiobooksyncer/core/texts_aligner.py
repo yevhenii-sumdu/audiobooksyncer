@@ -1,3 +1,5 @@
+from loguru import logger
+
 from .utils import PathLikeType, run_in_subprocess
 
 
@@ -18,6 +20,9 @@ def align_texts(src_path: PathLikeType, tgt_path: PathLikeType):
         tgt = f.read()
 
     aligner = Bertalign(src, tgt, load_model())
+    logger.debug('Loaded LaBSE model')
+
     aligner.align_sents()
+    logger.debug('Texts aligned successfully')
 
     return aligner.get_result()
